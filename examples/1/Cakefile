@@ -1,0 +1,41 @@
+
+path = require 'path'
+headake = require '../../headake'
+
+nib = require 'nib'
+
+task 'build', 'build everything with headake', (opts) ->
+	headake.run({
+		files:
+			'src/(.*)':
+				plugin: 'echo'
+			
+			'fakepath':
+				plugin: 'fakeplugin'
+			
+			'src/(.*)\.coffee':
+				plugin: 'coffeescript'
+				pluginOpts:
+					bare: false
+				out: (matches) ->
+					return 'build/' + matches[1] + '.js'
+				ignore: (matches) ->
+					return path.basename(matches[0]).indexOf('_') is 0
+			
+			'src/(.*)\.jade':
+				plugin: 'jade'
+				out: (matches) ->
+					return 'build/' + matches[1] + '.html'
+				ignore: (matches) ->
+					return path.basename(matches[0]).indexOf('_') is 0
+			
+			'src/(.*)\.styl':
+				plugin: 'stylus'
+				pluginOpts:
+					use: nib()
+				out: (matches) ->
+					return 'build/' + matches[1] + '.css'
+				ignore: (matches) ->
+					return path.basename(matches[0]).indexOf('_') is 0
+			
+	})

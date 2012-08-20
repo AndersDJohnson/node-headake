@@ -1,0 +1,8 @@
+body {
+  color: #00f;
+  -webkit-transition: color;
+  -moz-transition: color;
+  -o-transition: color;
+  -ms-transition: color;
+  transition: color;
+}
