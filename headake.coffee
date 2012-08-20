@@ -63,13 +63,13 @@ headake.run = (opts = {}) ->
 						else if rule.ignore? and rule.ignore(matches)
 							log {status: -2, plugin: pluginName, files: joined}
 						else
-							pluginOpts = rule.pluginOpts
+							opts = rule.opts
 							status = plugin.run({
 								filename: joined
 								rule: rule
 								matches: matches
 								runOpts: opts
-								pluginOpts: pluginOpts
+								opts: opts
 							})
 							log {status: status, plugin: pluginName, files: joined}
 						util.puts('')

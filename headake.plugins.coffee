@@ -24,7 +24,7 @@ module.exports =
 				CoffeeScript = require 'coffee-script'
 				out = makeOutDir(opts)
 				source = fs.readFileSync(opts.filename).toString()
-				rendered = CoffeeScript.compile source, opts.pluginOpts
+				rendered = CoffeeScript.compile source, opts.opts
 				fs.writeFileSync(out, rendered)
 				return 0
 			catch err
@@ -37,7 +37,7 @@ module.exports =
 				jade = require 'jade'
 				out = makeOutDir(opts)
 				source = fs.readFileSync(opts.filename).toString()
-				renderer = jade.compile source, opts.pluginOpts
+				renderer = jade.compile source, opts.opts
 				rendered = renderer()
 				fs.writeFileSync(out, rendered)
 				return 0
@@ -54,7 +54,7 @@ module.exports =
 				status = 0
 				s = stylus(source)
 				s.set('filename', opts.filename)
-				for method, args of opts.pluginOpts
+				for method, args of opts.opts
 					args = [args] unless util.isArray(args)
 					s[method].apply(s, args)
 				s.render( (err, css) ->

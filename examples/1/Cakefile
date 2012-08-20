@@ -15,7 +15,7 @@ task 'build', 'build everything with headake', (opts) ->
 			
 			'src/(.*)\.coffee':
 				plugin: 'coffeescript'
-				pluginOpts:
+				opts:
 					bare: false
 				out: (matches) ->
 					return 'build/' + matches[1] + '.js'
@@ -31,7 +31,7 @@ task 'build', 'build everything with headake', (opts) ->
 			
 			'src/(.*)\.styl':
 				plugin: 'stylus'
-				pluginOpts:
+				opts:
 					use: nib()
 				out: (matches) ->
 					return 'build/' + matches[1] + '.css'
